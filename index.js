@@ -1,1 +1,1 @@
-export { default as prioritize } from './src/prioritize.js';
+export { default } from './src/prioritize.js';
