@@ -74,6 +74,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"async-agent": "^0.5.4",
+		"object-agent": "^1.4.13",
 		"type-enforcer": "^1.1.5"
 	},
 	"devDependencies": {

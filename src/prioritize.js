@@ -1,3 +1,4 @@
+import appendParameters from './appendParameters.js';
 import { APPLICATION_JSON, CONTENT_TYPE, METHOD } from './constants.js';
 import PriorityQueue from './PriorityQueue.js';
 import processBody from './processBody.js';
@@ -44,6 +45,7 @@ const prioritize = {
 	 * - Adds any default settings from prioritize.defaults.<br>
 	 * - settings.body is passed through JSON.stringify() if appropriate.
 	 * @param {string} [settings.priority] - If set to "low" then this call is added to a queue until all previously added calls are complete.
+	 * @param {object} [settings.params] - Search parameters to append to the url. example: `{ a: 1 }` => `?a=1`
 	 *
 	 * @returns {Promise} Should be handled like a normal call to fetch
 	 */
@@ -52,6 +54,7 @@ const prioritize = {
 
 		settings = { ...prioritize.defaults, ...settings };
 
+		appendParameters(settings, fullUrl);
 		processBody(settings);
 
 		return new Promise((resolve) => {
