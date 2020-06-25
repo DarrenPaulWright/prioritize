@@ -48,6 +48,8 @@ const prioritize = {
 	 * @returns {Promise} Should be handled like a normal call to fetch
 	 */
 	fetch(url, settings) {
+		const fullUrl = new URL(url, prioritize.baseUrl);
+
 		settings = { ...prioritize.defaults, ...settings };
 
 		processBody(settings);
@@ -56,7 +58,7 @@ const prioritize = {
 			const doFetch = () => {
 				priorityQueue.callStarted();
 
-				fetch(prioritize.baseUrl + url, settings)
+				fetch(fullUrl, settings)
 					.then((response) => {
 						priorityQueue.callDone();
 						resolve(response);
