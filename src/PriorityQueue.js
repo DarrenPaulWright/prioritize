@@ -1,34 +1,30 @@
 import { throttle } from 'async-agent';
-import { Queue } from 'type-enforcer';
 
-export default class PriorityQueue extends Queue {
+export default class PriorityQueue {
 	constructor() {
-		super();
-
 		const self = this;
-		self._currentCallTotal = 0;
-		self._check = throttle(
-			() => {
-				if (self._currentCallTotal === 0 && self.length !== 0) {
-					self.triggerFirst();
-				}
-			},
-			50,
-			{ leading: false }
-		);
+		const check = () => {
+			if (self._total === 0 && self._queue.length !== 0) {
+				self._queue.shift()();
+			}
+		};
+
+		self._total = 0;
+		self._queue = [];
+		self._check = throttle(check, 50, { leading: false });
 	}
 
 	add(callback) {
-		super.add(callback);
+		this._queue.push(callback);
 		this._check();
 	}
 
 	callStarted() {
-		++this._currentCallTotal;
+		++this._total;
 	}
 
 	callDone() {
-		--this._currentCallTotal;
+		--this._total;
 		this._check();
 	}
 }
