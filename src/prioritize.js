@@ -1,6 +1,6 @@
-import { isString } from 'type-enforcer';
 import { APPLICATION_JSON, CONTENT_TYPE, METHOD } from './constants.js';
 import PriorityQueue from './PriorityQueue.js';
+import processBody from './processBody.js';
 
 const defaults = { headers: {} };
 defaults.headers[CONTENT_TYPE] = APPLICATION_JSON;
@@ -50,13 +50,7 @@ const prioritize = {
 	fetch(url, settings) {
 		settings = { ...prioritize.defaults, ...settings };
 
-		if (
-			settings.method !== METHOD.GET &&
-			settings.headers[CONTENT_TYPE] === APPLICATION_JSON &&
-			!isString(settings.body)
-		) {
-			settings.body = JSON.stringify(settings.body);
-		}
+		processBody(settings);
 
 		return new Promise((resolve) => {
 			const doFetch = () => {
