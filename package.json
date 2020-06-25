@@ -1,6 +1,6 @@
 {
 	"name": "prioritize",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"description": "A light ES6 wrapper on fetch to facilitate prioritization of calls.",
 	"author": {
 		"name": "Darren Paul Wright",
