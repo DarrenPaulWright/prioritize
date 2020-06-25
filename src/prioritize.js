@@ -1,15 +1,6 @@
 import { isString } from 'type-enforcer';
+import { APPLICATION_JSON, CONTENT_TYPE, METHOD } from './constants.js';
 import PriorityQueue from './PriorityQueue.js';
-
-const METHOD = {
-	GET: 'GET',
-	PATCH: 'PATCH',
-	PUT: 'PUT',
-	POST: 'POST',
-	DELETE: 'DELETE'
-};
-const CONTENT_TYPE = 'Content-Type';
-const APPLICATION_JSON = 'application/json';
 
 const defaults = { headers: {} };
 defaults.headers[CONTENT_TYPE] = APPLICATION_JSON;
