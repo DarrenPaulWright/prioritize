@@ -36,7 +36,7 @@ npm install prioritize
 ### prioritize.baseUrl
 > A baseUrl to prepend to the url for each call to fetch
 
-**Default**: <code>&#x27;&#x27;</code>  
+**Default**: <code>window.location.protocol + &#x27;//&#x27; + window.location.host</code>  
 
 <br><a name="module_prioritize.defaults"></a>
 
@@ -57,6 +57,7 @@ npm install prioritize
 | url | <code>string</code> | URL to call |
 | [settings] | <code>object</code> | All settings available to fetch.<br> - Adds any default settings from prioritize.defaults.<br> - settings.body is passed through JSON.stringify() if appropriate. |
 | [settings.priority] | <code>string</code> | If set to "low" then this call is added to a queue until all previously added calls are complete. |
+| [settings.params] | <code>object</code> | Search parameters to append to the url. example: `{ a: 1 }` => `?a=1` |
 
 
 <br><a name="module_prioritize.get"></a>
