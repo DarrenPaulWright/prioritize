@@ -21,9 +21,9 @@ const prioritize = {
 	 * A baseUrl to prepend to the url for each call to fetch
 	 *
 	 * @memberOf module:prioritize
-	 * @default ''
+	 * @default window.location.protocol + '//' + window.location.host
 	 */
-	baseUrl: '',
+	baseUrl: window.location.protocol + '//' + window.location.host,
 
 	/**
 	 * Default settings for each call to fetch.
