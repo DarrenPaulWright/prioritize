@@ -5,7 +5,7 @@ export default (settings, url) => {
 	if ('params' in settings) {
 		if (isObject(settings.params)) {
 			forOwn(settings.params, (value, key) => {
-				url.searchParams.append(key, value);
+				url.searchParams.append(key, JSON.stringify(value));
 			});
 		}
 
