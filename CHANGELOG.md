@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
-## [0.3.0] - 2020-07-9
+## [0.3.1] - 2020-07-14
+### Added
+- Only run JSON.stringify on parameter values that are objects or arrays
+
+## [0.3.0] - 2020-07-09
 ### Added
 - Running JSON.stringify on parameter values
 

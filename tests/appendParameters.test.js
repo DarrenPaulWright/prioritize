@@ -2,13 +2,22 @@ import { assert } from 'type-enforcer';
 import appendParameters from '../src/appendParameters.js';
 
 describe('appendParameters', () => {
-	it('should append a simple value', () => {
+	it('should append a number', () => {
 		const url = new URL('http://www.example.com');
 		const settings = { params: { a: 1 } };
 
 		appendParameters(settings, url);
 
 		assert.is(url.searchParams.toString(), 'a=1');
+	});
+
+	it('should append a string', () => {
+		const url = new URL('http://www.example.com');
+		const settings = { params: { a: 'csv' } };
+
+		appendParameters(settings, url);
+
+		assert.is(url.searchParams.toString(), 'a=csv');
 	});
 
 	it('should append a deep object', () => {
