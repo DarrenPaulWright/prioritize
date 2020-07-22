@@ -11,118 +11,118 @@
 [![license][license]][license-url]
 
 
-<br><a name="module_prioritize"></a>
+<br><a name="Prioritize"></a>
 
-## prioritize
+## Prioritize
 A light wrapper on fetch to facilitate prioritization of calls.
 
 ```
 npm install prioritize
 ```
 
-* [prioritize](#module_prioritize)
-    * [.baseUrl](#module_prioritize.baseUrl)
-    * [.defaults](#module_prioritize.defaults)
-    * [.fetch(url, [settings])](#module_prioritize.fetch) ⇒ <code>Promise</code>
-    * [.get(url, [settings])](#module_prioritize.get) ⇒ <code>Promise</code>
-    * [.patch(url, [settings])](#module_prioritize.patch) ⇒ <code>Promise</code>
-    * [.put(url, [settings])](#module_prioritize.put) ⇒ <code>Promise</code>
-    * [.post(url, [settings])](#module_prioritize.post) ⇒ <code>Promise</code>
-    * [.delete(url, [settings])](#module_prioritize.delete) ⇒ <code>Promise</code>
+* [Prioritize](#Prioritize)
+    * [.baseUrl](#Prioritize+baseUrl)
+    * [.defaults](#Prioritize+defaults)
+    * [.fetch(url, [settings])](#Prioritize+fetch) ⇒ <code>Promise</code>
+    * [.get(url, [settings])](#Prioritize+get) ⇒ <code>Promise</code>
+    * [.patch(url, [settings])](#Prioritize+patch) ⇒ <code>Promise</code>
+    * [.put(url, [settings])](#Prioritize+put) ⇒ <code>Promise</code>
+    * [.post(url, [settings])](#Prioritize+post) ⇒ <code>Promise</code>
+    * [.delete(url, [settings])](#Prioritize+delete) ⇒ <code>Promise</code>
 
 
-<br><a name="module_prioritize.baseUrl"></a>
+<br><a name="Prioritize+baseUrl"></a>
 
 ### prioritize.baseUrl
 > A baseUrl to prepend to the url for each call to fetch
 
 **Default**: <code>window.location.protocol + &#x27;//&#x27; + window.location.host</code>  
 
-<br><a name="module_prioritize.defaults"></a>
+<br><a name="Prioritize+defaults"></a>
 
 ### prioritize.defaults
 > Default settings for each call to fetch.
 
 **Default**: <code>{ headers: { &#x27;Content-Type&#x27;: &#x27;application/json&#x27; } }</code>  
 
-<br><a name="module_prioritize.fetch"></a>
+<br><a name="Prioritize+fetch"></a>
 
 ### prioritize.fetch(url, [settings]) ⇒ <code>Promise</code>
 > Prioritized call to fetch.
 
-**Returns**: <code>Promise</code> - Should be handled like a normal call to fetch  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| url | <code>string</code> | URL to call |
-| [settings] | <code>object</code> | All settings available to fetch.<br> - Adds any default settings from prioritize.defaults.<br> - settings.body is passed through JSON.stringify() if appropriate. |
-| [settings.priority] | <code>string</code> | If set to "low" then this call is added to a queue until all previously added calls are complete. |
-| [settings.params] | <code>object</code> | Search parameters to append to the url. example: `{ a: 1 }` => `?a=1` |
-
-
-<br><a name="module_prioritize.get"></a>
-
-### prioritize.get(url, [settings]) ⇒ <code>Promise</code>
-> Shortcut to prioritize.fetch with method: 'GET'.
-
-**Returns**: <code>Promise</code> - Should be handled like a normal call to fetch  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| url | <code>string</code> | URL to call |
-| [settings] | <code>object</code> | Passed to prioritize.fetch with method: 'GET' |
-
-
-<br><a name="module_prioritize.patch"></a>
-
-### prioritize.patch(url, [settings]) ⇒ <code>Promise</code>
-> Shortcut to prioritize.fetch with method: 'PATCH'.
-
-**Returns**: <code>Promise</code> - Should be handled like a normal call to fetch  
+**Returns**: <code>Promise</code> - Should be handled like a normal call to fetch.  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | url | <code>string</code> | URL to call. |
-| [settings] | <code>object</code> | Passed to prioritize.fetch with method: 'PATCH' |
+| [settings] | <code>object</code> | All settings available to fetch.<br> - Adds any default settings from `prioritize.defaults`.<br> - `settings.body` is passed through `JSON.stringify()` if appropriate. |
+| [settings.priority] | <code>string</code> | If set to "low" then this call is added to a queue until all ongoing calls are complete. |
+| [settings.params] | <code>object</code> | Search parameters to append to the url. example: `{ a: 1 } => ?a=1`. Objects and Arrays are passed through `JSON.stringify()`. |
 
 
-<br><a name="module_prioritize.put"></a>
+<br><a name="Prioritize+get"></a>
+
+### prioritize.get(url, [settings]) ⇒ <code>Promise</code>
+> Shortcut to `prioritize.fetch` with `method: 'GET'`.
+
+**Returns**: <code>Promise</code> - Should be handled like a normal call to fetch.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| url | <code>string</code> | URL to call. |
+| [settings] | <code>object</code> | Passed to `prioritize.fetch` with `method: 'GET'`. |
+
+
+<br><a name="Prioritize+patch"></a>
+
+### prioritize.patch(url, [settings]) ⇒ <code>Promise</code>
+> Shortcut to `prioritize.fetch` with `method: 'PATCH'`.
+
+**Returns**: <code>Promise</code> - Should be handled like a normal call to fetch.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| url | <code>string</code> | URL to call. |
+| [settings] | <code>object</code> | Passed to `prioritize.fetch` with `method: 'PATCH'`. |
+
+
+<br><a name="Prioritize+put"></a>
 
 ### prioritize.put(url, [settings]) ⇒ <code>Promise</code>
-> Shortcut to prioritize.fetch with method: 'PUT'.
+> Shortcut to `prioritize.fetch` with `method: 'PUT'`.
 
-**Returns**: <code>Promise</code> - Should be handled like a normal call to fetch  
+**Returns**: <code>Promise</code> - Should be handled like a normal call to fetch.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| url | <code>string</code> | URL to call |
-| [settings] | <code>object</code> | Passed to prioritize.fetch with method: 'PUT' |
+| url | <code>string</code> | URL to call. |
+| [settings] | <code>object</code> | Passed to `prioritize.fetch` with `method: 'PUT'`. |
 
 
-<br><a name="module_prioritize.post"></a>
+<br><a name="Prioritize+post"></a>
 
 ### prioritize.post(url, [settings]) ⇒ <code>Promise</code>
-> Shortcut to prioritize.fetch with method: 'POST'.
+> Shortcut to `prioritize.fetch` with `method: 'POST'`.
 
-**Returns**: <code>Promise</code> - Should be handled like a normal call to fetch  
+**Returns**: <code>Promise</code> - Should be handled like a normal call to fetch.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| url | <code>string</code> | URL to call |
-| [settings] | <code>object</code> | Passed to prioritize.fetch with method: 'POST' |
+| url | <code>string</code> | URL to call. |
+| [settings] | <code>object</code> | Passed to `prioritize.fetch` with `method: 'POST'`. |
 
 
-<br><a name="module_prioritize.delete"></a>
+<br><a name="Prioritize+delete"></a>
 
 ### prioritize.delete(url, [settings]) ⇒ <code>Promise</code>
-> Shortcut to prioritize.fetch with method: 'DELETE'.
+> Shortcut to `prioritize.fetch` with `method: 'DELETE'`.
 
-**Returns**: <code>Promise</code> - Should be handled like a normal call to fetch  
+**Returns**: <code>Promise</code> - Should be handled like a normal call to fetch.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| url | <code>string</code> | URL to call |
-| [settings] | <code>object</code> | Passed to prioritize.fetch with method: 'DELETE' |
+| url | <code>string</code> | URL to call. |
+| [settings] | <code>object</code> | Passed to `prioritize.fetch` with `method: 'DELETE'`. |
 
 
 [npm]: https://img.shields.io/npm/v/prioritize.svg
