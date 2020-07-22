@@ -1,6 +1,6 @@
 import { resolveAfterWith } from 'async-agent';
 import { assert } from 'type-enforcer';
-import prioritize from '../src/prioritize.js';
+import Prioritize from '../src/prioritize.js';
 
 class FetchMock {
 	constructor(onFetch) {
@@ -30,14 +30,19 @@ class FetchMock {
 
 describe('prioritize', () => {
 	it('should have property baseUrl', () => {
+		const prioritize = new Prioritize();
+
 		assert.is(prioritize.baseUrl.indexOf('http'), 0);
 	});
 
 	it('should have default settings', () => {
+		const prioritize = new Prioritize();
+
 		assert.equal(prioritize.defaults, { headers: { 'Content-Type': 'application/json' } });
 	});
 
 	it('should wait to call if priority is low', (done) => {
+		const prioritize = new Prioritize();
 		const allUrls = [];
 
 		const mock = new FetchMock((url) => {
@@ -57,6 +62,7 @@ describe('prioritize', () => {
 
 	describe('shortcuts', () => {
 		it('should add appropriate method when get is called', () => {
+			const prioritize = new Prioritize();
 			const mock = new FetchMock();
 
 			return prioritize.get('/api/v1', { params: { a: 1, b: 2 } })
@@ -69,6 +75,7 @@ describe('prioritize', () => {
 		});
 
 		it('should add appropriate method when patch is called', () => {
+			const prioritize = new Prioritize();
 			const mock = new FetchMock();
 
 			return prioritize.patch('/api/v1', { body: { a: 1 } })
@@ -81,6 +88,7 @@ describe('prioritize', () => {
 		});
 
 		it('should add appropriate method when put is called', () => {
+			const prioritize = new Prioritize();
 			const mock = new FetchMock();
 
 			return prioritize.put('/api/v1', { body: { a: 1 } })
@@ -93,6 +101,7 @@ describe('prioritize', () => {
 		});
 
 		it('should add appropriate method when post is called', () => {
+			const prioritize = new Prioritize();
 			const mock = new FetchMock();
 
 			return prioritize.post('/api/v1', { body: { a: 1 } })
@@ -105,6 +114,7 @@ describe('prioritize', () => {
 		});
 
 		it('should add appropriate method when delete is called', () => {
+			const prioritize = new Prioritize();
 			const mock = new FetchMock();
 
 			return prioritize.delete('/api/v1', { body: { a: 1 } })

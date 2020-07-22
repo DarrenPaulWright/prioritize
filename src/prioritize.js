@@ -3,10 +3,7 @@ import { APPLICATION_JSON, CONTENT_TYPE, METHOD } from './constants.js';
 import PriorityQueue from './PriorityQueue.js';
 import processBody from './processBody.js';
 
-const defaults = { headers: {} };
-defaults.headers[CONTENT_TYPE] = APPLICATION_JSON;
-
-const priorityQueue = new PriorityQueue();
+const QUEUE = Symbol();
 
 /**
  * @summary
@@ -15,143 +12,149 @@ const priorityQueue = new PriorityQueue();
  * ```
  * npm install prioritize
  * ```
- * @module prioritize
+ *
+ * @class Prioritize
  */
-const prioritize = {
-	/**
-	 * A baseUrl to prepend to the url for each call to fetch
-	 *
-	 * @memberOf module:prioritize
-	 * @default window.location.protocol + '//' + window.location.host
-	 */
-	baseUrl: window.location.protocol + '//' + window.location.host,
+export default class Prioritize {
+	constructor() {
+		/**
+		 * A baseUrl to prepend to the url for each call to fetch
+		 *
+		 * @member baseUrl
+		 * @memberof Prioritize
+		 * @instance
+		 * @default window.location.protocol + '//' + window.location.host
+		 */
+		this.baseUrl = window.location.protocol + '//' + window.location.host;
 
-	/**
-	 * Default settings for each call to fetch.
-	 *
-	 * @memberOf module:prioritize
-	 * @default { headers: { 'Content-Type': 'application/json' } }
-	 */
-	defaults,
+		/**
+		 * Default settings for each call to fetch.
+		 *
+		 * @member defaults
+		 * @memberof Prioritize
+		 * @instance
+		 * @default { headers: { 'Content-Type': 'application/json' } }
+		 */
+		this.defaults = { headers: {} };
+		this.defaults.headers[CONTENT_TYPE] = APPLICATION_JSON;
+
+		this[QUEUE] = new PriorityQueue();
+	}
 
 	/**
 	 * Prioritized call to fetch.
 	 *
-	 * @memberOf module:prioritize
-	 * @static
+	 * @memberof Prioritize
+	 * @instance
 	 *
-	 * @param {string} url - URL to call
-	 * @param {object} [settings] - All settings available to fetch.<br>
-	 * - Adds any default settings from prioritize.defaults.<br>
-	 * - settings.body is passed through JSON.stringify() if appropriate.
-	 * @param {string} [settings.priority] - If set to "low" then this call is added to a queue until all previously added calls are complete.
-	 * @param {object} [settings.params] - Search parameters to append to the url. example: `{ a: 1 }` => `?a=1`
+	 * @param {string} url - URL to call.
+	 * @param {object} [settings] - All settings available to fetch.<br> - Adds any default settings from `prioritize.defaults`.<br> - `settings.body` is passed through `JSON.stringify()` if appropriate.
+	 * @param {string} [settings.priority] - If set to "low" then this call is added to a queue until all ongoing calls are complete.
+	 * @param {object} [settings.params] - Search parameters to append to the url. example: `{ a: 1 } => ?a=1`. Objects and Arrays are passed through `JSON.stringify()`.
 	 *
-	 * @returns {Promise} Should be handled like a normal call to fetch
+	 * @returns {Promise} Should be handled like a normal call to fetch.
 	 */
 	fetch(url, settings) {
-		const fullUrl = new URL(url, prioritize.baseUrl);
+		const fullUrl = new URL(url, this.baseUrl);
 
-		settings = { ...prioritize.defaults, ...settings };
+		settings = { ...this.defaults, ...settings };
 
 		appendParameters(settings, fullUrl);
 		processBody(settings);
 
 		return new Promise((resolve) => {
 			const doFetch = () => {
-				priorityQueue.callStarted();
+				this[QUEUE].callStarted();
 
 				fetch(fullUrl, settings)
 					.then((response) => {
-						priorityQueue.callDone();
+						this[QUEUE].callDone();
 						resolve(response);
 					});
 			};
 
 			if (settings.priority === 'low') {
 				delete settings.priority;
-				priorityQueue.add(doFetch);
+				this[QUEUE].add(doFetch);
 			}
 			else {
 				doFetch();
 			}
 		});
-	},
+	}
 
 	/**
-	 * Shortcut to prioritize.fetch with method: 'GET'.
+	 * Shortcut to `prioritize.fetch` with `method: 'GET'`.
 	 *
-	 * @memberOf module:prioritize
-	 * @static
+	 * @memberof Prioritize
+	 * @instance
 	 *
-	 * @param {string} url - URL to call
-	 * @param {object} [settings] - Passed to prioritize.fetch with method: 'GET'
+	 * @param {string} url - URL to call.
+	 * @param {object} [settings] - Passed to `prioritize.fetch` with `method: 'GET'`.
 	 *
-	 * @returns {Promise} Should be handled like a normal call to fetch
+	 * @returns {Promise} Should be handled like a normal call to fetch.
 	 */
 	get(url, settings) {
 		return this.fetch(url, { ...settings, method: METHOD.GET });
-	},
+	}
 
 	/**
-	 * Shortcut to prioritize.fetch with method: 'PATCH'.
+	 * Shortcut to `prioritize.fetch` with `method: 'PATCH'`.
 	 *
-	 * @memberOf module:prioritize
-	 * @static
+	 * @memberof Prioritize
+	 * @instance
 	 *
 	 * @param {string} url - URL to call.
-	 * @param {object} [settings] - Passed to prioritize.fetch with method: 'PATCH'
+	 * @param {object} [settings] - Passed to `prioritize.fetch` with `method: 'PATCH'`.
 	 *
-	 * @returns {Promise} Should be handled like a normal call to fetch
+	 * @returns {Promise} Should be handled like a normal call to fetch.
 	 */
 	patch(url, settings) {
 		return this.fetch(url, { ...settings, method: METHOD.PATCH });
-	},
+	}
 
 	/**
-	 * Shortcut to prioritize.fetch with method: 'PUT'.
+	 * Shortcut to `prioritize.fetch` with `method: 'PUT'`.
 	 *
-	 * @memberOf module:prioritize
-	 * @static
+	 * @memberof Prioritize
+	 * @instance
 	 *
-	 * @param {string} url - URL to call
-	 * @param {object} [settings] - Passed to prioritize.fetch with method: 'PUT'
+	 * @param {string} url - URL to call.
+	 * @param {object} [settings] - Passed to `prioritize.fetch` with `method: 'PUT'`.
 	 *
-	 * @returns {Promise} Should be handled like a normal call to fetch
+	 * @returns {Promise} Should be handled like a normal call to fetch.
 	 */
 	put(url, settings) {
 		return this.fetch(url, { ...settings, method: METHOD.PUT });
-	},
+	}
 
 	/**
-	 * Shortcut to prioritize.fetch with method: 'POST'.
+	 * Shortcut to `prioritize.fetch` with `method: 'POST'`.
 	 *
-	 * @memberOf module:prioritize
-	 * @static
+	 * @memberof Prioritize
+	 * @instance
 	 *
-	 * @param {string} url - URL to call
-	 * @param {object} [settings] - Passed to prioritize.fetch with method: 'POST'
+	 * @param {string} url - URL to call.
+	 * @param {object} [settings] - Passed to `prioritize.fetch` with `method: 'POST'`.
 	 *
-	 * @returns {Promise} Should be handled like a normal call to fetch
+	 * @returns {Promise} Should be handled like a normal call to fetch.
 	 */
 	post(url, settings) {
 		return this.fetch(url, { ...settings, method: METHOD.POST });
-	},
+	}
 
 	/**
-	 * Shortcut to prioritize.fetch with method: 'DELETE'.
+	 * Shortcut to `prioritize.fetch` with `method: 'DELETE'`.
 	 *
-	 * @memberOf module:prioritize
-	 * @static
+	 * @memberof Prioritize
+	 * @instance
 	 *
-	 * @param {string} url - URL to call
-	 * @param {object} [settings] - Passed to prioritize.fetch with method: 'DELETE'
+	 * @param {string} url - URL to call.
+	 * @param {object} [settings] - Passed to `prioritize.fetch` with `method: 'DELETE'`.
 	 *
-	 * @returns {Promise} Should be handled like a normal call to fetch
+	 * @returns {Promise} Should be handled like a normal call to fetch.
 	 */
 	delete(url, settings) {
 		return this.fetch(url, { ...settings, method: METHOD.DELETE });
 	}
-};
-
-export default prioritize;
+}
