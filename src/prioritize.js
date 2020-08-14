@@ -18,7 +18,7 @@ const QUEUE = Symbol();
 export default class Prioritize {
 	constructor() {
 		/**
-		 * A baseUrl to prepend to the url for each call to fetch
+		 * A baseUrl to prepend to the url for each call to fetch.
 		 *
 		 * @member baseUrl
 		 * @memberof Prioritize
