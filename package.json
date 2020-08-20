@@ -1,6 +1,6 @@
 {
 	"name": "prioritize",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A light ES6 wrapper on fetch to facilitate prioritization of calls.",
 	"type": "module",
 	"keywords": [
