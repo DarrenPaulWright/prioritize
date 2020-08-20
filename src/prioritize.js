@@ -21,7 +21,7 @@ export default class Prioritize {
 		 * A baseUrl to prepend to the url for each call to fetch.
 		 *
 		 * @member baseUrl
-		 * @memberof Prioritize
+		 * @memberOf Prioritize
 		 * @instance
 		 * @default window.location.protocol + '//' + window.location.host
 		 */
@@ -31,7 +31,7 @@ export default class Prioritize {
 		 * Default settings for each call to fetch.
 		 *
 		 * @member defaults
-		 * @memberof Prioritize
+		 * @memberOf Prioritize
 		 * @instance
 		 * @default { headers: { 'Content-Type': 'application/json' } }
 		 */
@@ -44,7 +44,7 @@ export default class Prioritize {
 	/**
 	 * Prioritized call to fetch.
 	 *
-	 * @memberof Prioritize
+	 * @memberOf Prioritize
 	 * @instance
 	 *
 	 * @param {string} url - URL to call.
@@ -86,7 +86,7 @@ export default class Prioritize {
 	/**
 	 * Shortcut to `prioritize.fetch` with `method: 'GET'`.
 	 *
-	 * @memberof Prioritize
+	 * @memberOf Prioritize
 	 * @instance
 	 *
 	 * @param {string} url - URL to call.
@@ -101,7 +101,7 @@ export default class Prioritize {
 	/**
 	 * Shortcut to `prioritize.fetch` with `method: 'PATCH'`.
 	 *
-	 * @memberof Prioritize
+	 * @memberOf Prioritize
 	 * @instance
 	 *
 	 * @param {string} url - URL to call.
@@ -116,7 +116,7 @@ export default class Prioritize {
 	/**
 	 * Shortcut to `prioritize.fetch` with `method: 'PUT'`.
 	 *
-	 * @memberof Prioritize
+	 * @memberOf Prioritize
 	 * @instance
 	 *
 	 * @param {string} url - URL to call.
@@ -131,7 +131,7 @@ export default class Prioritize {
 	/**
 	 * Shortcut to `prioritize.fetch` with `method: 'POST'`.
 	 *
-	 * @memberof Prioritize
+	 * @memberOf Prioritize
 	 * @instance
 	 *
 	 * @param {string} url - URL to call.
@@ -146,7 +146,7 @@ export default class Prioritize {
 	/**
 	 * Shortcut to `prioritize.fetch` with `method: 'DELETE'`.
 	 *
-	 * @memberof Prioritize
+	 * @memberOf Prioritize
 	 * @instance
 	 *
 	 * @param {string} url - URL to call.

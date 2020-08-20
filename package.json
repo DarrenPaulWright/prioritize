@@ -77,13 +77,13 @@
 		"docs": "jsdoc2md ./src/prioritize.js > README.md -t node_modules/dmd-readable/docs.hbs --plugin dmd-readable"
 	},
 	"dependencies": {
-		"async-agent": "^0.5.4",
-		"object-agent": "^1.4.13",
-		"type-enforcer": "^1.2.0"
+		"async-agent": "^0.5.5",
+		"object-agent": "^1.4.15",
+		"type-enforcer": "^1.2.1"
 	},
 	"devDependencies": {
 		"dmd-readable": "^1.2.2",
 		"jsdoc-to-markdown": "^6.0.1",
-		"karma-webpack-bundle": "0.5.0"
+		"karma-webpack-bundle": "0.5.3"
 	}
 }
