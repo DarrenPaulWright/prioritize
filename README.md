@@ -34,7 +34,7 @@ npm install prioritize
 <br><a name="Prioritize+baseUrl"></a>
 
 ### prioritize.baseUrl
-> A baseUrl to prepend to the url for each call to fetch
+> A baseUrl to prepend to the url for each call to fetch.
 
 **Default**: <code>window.location.protocol + &#x27;//&#x27; + window.location.host</code>  
 
@@ -131,8 +131,8 @@ npm install prioritize
 [build-url]: https://travis-ci.org/DarrenPaulWright/prioritize
 [coverage]: https://coveralls.io/repos/github/DarrenPaulWright/prioritize/badge.svg?branch&#x3D;master
 [coverage-url]: https://coveralls.io/github/DarrenPaulWright/prioritize?branch&#x3D;master
-[deps]: https://david-dm.org/darrenpaulwright/prioritize.svg
-[deps-url]: https://david-dm.org/darrenpaulwright/prioritize
+[deps]: https://david-dm.org/DarrenPaulWright/prioritize.svg
+[deps-url]: https://david-dm.org/DarrenPaulWright/prioritize
 [size]: https://packagephobia.now.sh/badge?p&#x3D;prioritize
 [size-url]: https://packagephobia.now.sh/result?p&#x3D;prioritize
 [vulnerabilities]: https://snyk.io/test/github/DarrenPaulWright/prioritize/badge.svg?targetFile&#x3D;package.json
