@@ -4,8 +4,14 @@ module.exports = function(api) {
 			'@babel/preset-env'
 		]
 	];
+	const plugins = [
+		['istanbul', {'exclude': ['tests/**/*.js']}]
+	];
 
 	api.cache(true);
 
-	return { presets };
+	return {
+		presets,
+		plugins
+	};
 };
