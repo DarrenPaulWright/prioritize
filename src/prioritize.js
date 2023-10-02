@@ -62,7 +62,7 @@ export default class Prioritize {
 		appendParameters(settings, fullUrl);
 		processBody(settings);
 
-		return new Promise((resolve) => {
+		return new Promise((resolve, reject) => {
 			const doFetch = () => {
 				this[QUEUE].callStarted();
 
@@ -70,7 +70,8 @@ export default class Prioritize {
 					.then((response) => {
 						this[QUEUE].callDone();
 						resolve(response);
-					});
+					})
+					.catch(reject);
 			};
 
 			if (settings.priority === 'low') {
